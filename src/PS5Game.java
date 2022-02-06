@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class PS5Game extends PlayStationGame {
     private boolean isPS5Exclusive;
 
-    public PS5Game(String videoGameName, int videoGameReleaseDate, boolean hasPlatinumTrophy, boolean isPS5Exclusive) {
+    private PS5Game(String videoGameName, int videoGameReleaseDate, boolean hasPlatinumTrophy, boolean isPS5Exclusive) {
         super(videoGameName, "PS5", videoGameReleaseDate, hasPlatinumTrophy);
         this.isPS5Exclusive = isPS5Exclusive;
     }
@@ -46,7 +46,6 @@ public class PS5Game extends PlayStationGame {
     @Override
     public void modifyVideoGame() {
         modifyOptions();
-
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
         scanner.nextLine();

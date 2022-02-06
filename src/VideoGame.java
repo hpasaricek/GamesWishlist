@@ -1,7 +1,4 @@
-import java.io.Serializable;
-import java.util.Scanner;
-
-public abstract class VideoGame implements Serializable {
+public abstract class VideoGame {
     private String videoGameName;
     private String videoGameConsole;
     private int videoGameReleaseDate;

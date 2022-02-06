@@ -1,12 +1,8 @@
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class GamesWishlist implements Serializable {
+public class GamesWishlist {
     private final String gamesWishlistName;
     private final List<VideoGame> gamesInWishlist = new ArrayList<>();
     private int gamesCount;

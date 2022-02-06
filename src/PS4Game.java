@@ -40,7 +40,7 @@ public class PS4Game extends PlayStationGame {
     @Override
     public void modifyOptions() {
         super.modifyOptions();
-        System.out.println("4. 4. PS5 update available");
+        System.out.println("4. PS5 update available");
     }
 
     @Override
