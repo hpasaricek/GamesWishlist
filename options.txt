@@ -1,0 +1,6 @@
+1. Add a PS4 game to the wishlist
+2. Add a PS5 game to the wishlist
+3. Remove a game from the wishlist
+4. Modify a game in the wishlist
+5. Display all games in the wishlist
+6. Quit
