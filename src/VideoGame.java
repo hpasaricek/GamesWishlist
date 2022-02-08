@@ -1,4 +1,6 @@
-public abstract class VideoGame {
+import java.io.Serializable;
+
+public abstract class VideoGame implements Serializable {
     private String videoGameName;
     private String videoGameConsole;
     private int videoGameReleaseDate;

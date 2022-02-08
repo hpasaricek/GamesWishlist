@@ -3,8 +3,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
-public final class gameWishlistOptions {
+public final class GameWishlistOptions {
     private static final StringBuilder options = new StringBuilder();
+    private static final Scanner scanner = new Scanner(System.in);
 
     // Loads available options from "options.txt" file and writes it into variable options
     static {
@@ -18,18 +19,18 @@ public final class gameWishlistOptions {
         }
     }
 
-    private gameWishlistOptions() {
+    private GameWishlistOptions() {
     }
 
-    // Entry method for gameWishlistOptions class
+    // Entry method for GameWishlistOptions class
     // Loops if the user doesn't choose "Quit" from available options
-    public static void startOptions(GamesWishlist wishlist) {
+    public static void startOptions(GameWishlist wishlist) {
         boolean quit;
+//        Scanner scanner = new Scanner(System.in);
 
         do {
             displayOptions();
             quit = selectOptions(wishlist);
-            displayDivider();
         } while (!quit);
     }
 
@@ -42,8 +43,8 @@ public final class gameWishlistOptions {
 
     // Accepts user input and chooses the corresponding option
     // Returns true if user chooses "Quit" or false otherwise
-    private static boolean selectOptions(GamesWishlist wishlist) {
-        Scanner scanner = new Scanner(System.in);
+    private static boolean selectOptions(GameWishlist wishlist) {
+//        Scanner scanner = new Scanner(System.in);
         int userChoice = scanner.nextInt();
         boolean quit = false;
 

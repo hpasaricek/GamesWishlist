@@ -1,16 +1,21 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class GamesWishlist {
+public class GameWishlist implements Serializable {
     private final String gamesWishlistName;
     private final List<VideoGame> gamesInWishlist = new ArrayList<>();
     private int gamesCount;
 
 
-    public GamesWishlist(String gamesWishlistName) {
+    public GameWishlist(String gamesWishlistName) {
         this.gamesWishlistName = gamesWishlistName;
         this.gamesCount = 0;
+    }
+
+    public String getGamesWishlistName() {
+        return gamesWishlistName;
     }
 
     public void addGameToWishlist(VideoGame game) {
@@ -66,7 +71,6 @@ public class GamesWishlist {
         System.out.println(this.gamesWishlistName + " has " + gamesCount + " game(s) in wishlist.");
         for (VideoGame game : gamesInWishlist) {
             System.out.println(game);
-            gameWishlistOptions.displayDivider();
         }
     }
 
@@ -75,5 +79,27 @@ public class GamesWishlist {
         displayGames();
         VideoGame game = findGame();
         game.modifyVideoGame();
+    }
+
+    public void saveWishlist() {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("output.dat"))) {
+            outputStream.writeObject(this);
+        } catch (IOException e) {
+            System.out.println("Error while saving GameWishlist.");
+        }
+    }
+
+    public GameWishlist loadWishlist() {
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("output.dat"))) {
+            return (GameWishlist) inputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error while loading GameWishlist.");
+            return null;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return this.gamesWishlistName;
     }
 }
