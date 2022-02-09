@@ -3,12 +3,12 @@ import java.io.Serializable;
 public abstract class VideoGame implements Serializable {
     private String videoGameName;
     private String videoGameConsole;
-    private int videoGameReleaseDate;
+    private int videoGameReleaseYear;
 
-    public VideoGame(String videoGameName, String videoGameConsole, int videoGameReleaseDate) {
+    public VideoGame(String videoGameName, String videoGameConsole, int videoGameReleaseYear) {
         this.videoGameName = videoGameName;
         this.videoGameConsole = videoGameConsole;
-        this.videoGameReleaseDate = videoGameReleaseDate;
+        this.videoGameReleaseYear = videoGameReleaseYear;
     }
 
     public String getVideoGameName() {
@@ -27,12 +27,12 @@ public abstract class VideoGame implements Serializable {
         this.videoGameConsole = videoGameConsole;
     }
 
-    public int getVideoGameReleaseDate() {
-        return videoGameReleaseDate;
+    public int getVideoGameReleaseYear() {
+        return videoGameReleaseYear;
     }
 
-    public void setVideoGameReleaseDate(int videoGameReleaseDate) {
-        this.videoGameReleaseDate = videoGameReleaseDate;
+    public void setVideoGameReleaseYear(int videoGameReleaseYear) {
+        this.videoGameReleaseYear = videoGameReleaseYear;
     }
 
     public void modifyOptions() {

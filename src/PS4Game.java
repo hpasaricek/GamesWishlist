@@ -11,7 +11,7 @@ public class PS4Game extends PlayStationGame {
     @Override
     public String toString() {
         return super.toString() +
-                "PS5 Update: " + this.hasPS5Update;
+                "PS5 Update: " + (this.hasPS5Update ? "Yes" : "No");
     }
 
     public static PS4Game createPS4game() {
@@ -24,15 +24,15 @@ public class PS4Game extends PlayStationGame {
         System.out.println("Enter PS4 game name:");
         name = scanner.nextLine();
 
-        System.out.println("Enter release date:");
+        System.out.println("Enter release year:");
         releaseDate = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println("Does the game have a platinum trophy?");
-        hasPlatinumTrophy = scanner.nextLine().equalsIgnoreCase("yes");
+        System.out.println("Does the game have a platinum trophy? (Y/N)");
+        hasPlatinumTrophy = scanner.nextLine().equalsIgnoreCase("y");
 
-        System.out.println("Does the game have a PS5 update?");
-        hasPS5Update = scanner.nextLine().equalsIgnoreCase("yes");
+        System.out.println("Does the game have a PS5 update? (Y/N)");
+        hasPS5Update = scanner.nextLine().equalsIgnoreCase("y");
 
         return new PS4Game(name, releaseDate, hasPlatinumTrophy, hasPS5Update);
     }
@@ -60,8 +60,8 @@ public class PS4Game extends PlayStationGame {
                 this.setVideoGameConsole(scanner.nextLine());
                 break;
             case 3:
-                System.out.println("New release date:");
-                this.setVideoGameReleaseDate(scanner.nextInt());
+                System.out.println("New release year:");
+                this.setVideoGameReleaseYear(scanner.nextInt());
                 break;
             case 4:
                 System.out.println("PS5 update available:");

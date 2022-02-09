@@ -11,7 +11,7 @@ public class PS5Game extends PlayStationGame {
     @Override
     public String toString() {
         return super.toString() +
-                "PS5 Exclusive: " + this.isPS5Exclusive;
+                "PS5 Exclusive: " + (this.isPS5Exclusive ? "Yes" : "No");
     }
 
     public static PS5Game createPS5game() {
@@ -24,15 +24,15 @@ public class PS5Game extends PlayStationGame {
         System.out.println("Enter PS5 game name:");
         name = scanner.nextLine();
 
-        System.out.println("Enter release date:");
+        System.out.println("Enter release year:");
         releaseDate = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println("Does the game have a platinum trophy?");
-        hasPlatinumTrophy = scanner.nextLine().equalsIgnoreCase("yes");
+        System.out.println("Does the game have a platinum trophy? (Y/N)");
+        hasPlatinumTrophy = scanner.nextLine().equalsIgnoreCase("y");
 
-        System.out.println("Is the game a PS5 exclusive?");
-        isPS5Exclusive = scanner.nextLine().equalsIgnoreCase("yes");
+        System.out.println("Is the game a PS5 exclusive? (Y/N)");
+        isPS5Exclusive = scanner.nextLine().equalsIgnoreCase("y");
 
         return new PS5Game(name, releaseDate, hasPlatinumTrophy, isPS5Exclusive);
     }
@@ -60,8 +60,8 @@ public class PS5Game extends PlayStationGame {
                 this.setVideoGameConsole(scanner.nextLine());
                 break;
             case 3:
-                System.out.println("New release date:");
-                this.setVideoGameReleaseDate(scanner.nextInt());
+                System.out.println("New release year:");
+                this.setVideoGameReleaseYear(scanner.nextInt());
                 break;
             case 4:
                 System.out.println("PS5 exclusive:");

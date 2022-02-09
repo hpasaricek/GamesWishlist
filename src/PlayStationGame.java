@@ -8,10 +8,10 @@ public abstract class PlayStationGame extends VideoGame {
 
     @Override
     public String toString() {
-        return "Console: " + this.getVideoGameConsole() + "\n" +
-                "Name: " + this.getVideoGameName() + "\n" +
-                "Release date: " + this.getVideoGameReleaseDate() + "\n" +
-                "Has platinum trophy: " + this.hasPlatinumTrophy + "\n";
+        return "Name: " + this.getVideoGameName() + "\n" +
+                "Console: " + this.getVideoGameConsole() + "\n" +
+                "Release year: " + this.getVideoGameReleaseYear() + "\n" +
+                "Has platinum trophy: " + (this.hasPlatinumTrophy ? "Yes" : "No") + "\n";
     }
 
 }

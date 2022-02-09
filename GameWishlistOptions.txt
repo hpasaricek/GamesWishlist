@@ -3,4 +3,5 @@
 3. Remove a game from the wishlist
 4. Modify a game in the wishlist
 5. Display all games in the wishlist
-6. Quit
+6. Switch to another wishlist
+7. Quit

@@ -1,80 +1,66 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Scanner;
 
 public final class GameWishlistOptions {
-    private static final StringBuilder options = new StringBuilder();
+    private static final String OPTIONS_FILENAME = "GameWishlistOptions.txt";
     private static final Scanner scanner = new Scanner(System.in);
-
-    // Loads available options from "options.txt" file and writes it into variable options
-    static {
-        String input;
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("options.txt"))) {
-            while ((input = bufferedReader.readLine()) != null) {
-                options.append(input).append("\n");
-            }
-        } catch (IOException e) {
-            System.out.println("Error while loading \"options.txt\" file!");
-        }
-    }
 
     private GameWishlistOptions() {
     }
 
-    // Entry method for GameWishlistOptions class
-    // Loops if the user doesn't choose "Quit" from available options
-    public static void startOptions(GameWishlist wishlist) {
-        boolean quit;
-//        Scanner scanner = new Scanner(System.in);
-
-        do {
-            displayOptions();
-            quit = selectOptions(wishlist);
-        } while (!quit);
-    }
-
-    // Displays a text menu with available options that were loaded from "options.txt"
+    // Available options used for startOptions() are loaded from file using OptionsLoaderUtils interface
     private static void displayOptions() {
-        System.out.println("Available options:" +
-                "\n" + options +
-                "Please enter a number to choose the corresponding option:");
+        System.out.println(OptionsLoaderUtils.loadOptionsFromFile(OPTIONS_FILENAME));
     }
 
-    // Accepts user input and chooses the corresponding option
-    // Returns true if user chooses "Quit" or false otherwise
-    private static boolean selectOptions(GameWishlist wishlist) {
-//        Scanner scanner = new Scanner(System.in);
-        int userChoice = scanner.nextInt();
+    // Starting method for the class
+    // Switch cases are corresponding to loaded options from displayOptions()
+    public static void startOptions() {
+        int userChoice;
         boolean quit = false;
+        GameWishlist wishlist = GameWishlistSelector.startSelector();
 
-        switch (userChoice) {
-            case 1:
-                wishlist.addGameToWishlist(PS4Game.createPS4game());
-                break;
-            case 2:
-                wishlist.addGameToWishlist(PS5Game.createPS5game());
-                break;
-            case 3:
-                wishlist.removeGameFromWishlist();
-                break;
-            case 4:
-                wishlist.modifyGame();
-                break;
-            case 5:
-                wishlist.displayGames();
-                break;
-            case 6:
-                System.out.println("Exiting program.");
-                quit = true;
-                break;
-            default:
-                System.out.println("Wrong number selected. Please try again!");
+        while (!quit) {
+            displayOptions();
+            userChoice = getUserChoice();
+            displayDivider();
+            switch (userChoice) {
+                case 1:
+                    wishlist.addGameToWishlist(PS4Game.createPS4game());
+                    break;
+                case 2:
+                    wishlist.addGameToWishlist(PS5Game.createPS5game());
+                    break;
+                case 3:
+                    wishlist.removeGameFromWishlist();
+                    break;
+                case 4:
+                    wishlist.modifyGame();
+                    break;
+                case 5:
+                    wishlist.displayWishlistGames();
+                    break;
+                case 6:
+                    wishlist = GameWishlistSelector.startSelector();
+                    break;
+                case 7:
+                    System.out.println("Exiting program.");
+                    quit = true;
+                    GameWishlistSelector.saveGameWishlistToFile();
+                    break;
+                default:
+                    System.out.println("Wrong number selected. Please try again!");
+            }
+            displayDivider();
         }
-        return quit;
     }
 
-    public static void displayDivider() {
-        System.out.println("\n****************************************\n");
+    private static int getUserChoice() {
+        int userChoice = scanner.nextInt();
+        scanner.nextLine();
+        return userChoice;
+    }
+
+    private static void displayDivider() {
+        System.out.println("\n---------------------------------------------\n");
     }
 }

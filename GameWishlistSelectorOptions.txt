@@ -1,0 +1,4 @@
+1. Choose a game wishlist and start the program.
+2. Create a new game wishlist.
+3. Remove an existing game wishlist.
+4. Display saved game wishlists.

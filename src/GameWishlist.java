@@ -4,57 +4,67 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GameWishlist implements Serializable {
-    private final String gamesWishlistName;
-    private final List<VideoGame> gamesInWishlist = new ArrayList<>();
-    private int gamesCount;
+    private final String gameWishlistName;
+    private final List<VideoGame> wishlistGames = new ArrayList<>();
+    private int wishlistGamesCount;
 
+    private static final String NO_GAMES_ERROR_TEXT = "There are no games in the wishlist!";
 
-    public GameWishlist(String gamesWishlistName) {
-        this.gamesWishlistName = gamesWishlistName;
-        this.gamesCount = 0;
+    public GameWishlist(String gameWishlistName) {
+        this.gameWishlistName = gameWishlistName;
+        this.wishlistGamesCount = 0;
     }
 
-    public String getGamesWishlistName() {
-        return gamesWishlistName;
+    public String getGameWishlistName() {
+        return gameWishlistName;
+    }
+
+    public int getWishlistGamesCount() {
+        return wishlistGamesCount;
     }
 
     public void addGameToWishlist(VideoGame game) {
-        if (gamesInWishlist.contains(game)) {
-            System.out.println("This game already exists in the wishlist.");
+        if (wishlistGames.contains(game)) {
+            System.out.println("Game: " + game.getVideoGameName() + " already exists in the wishlist: " + gameWishlistName);
             return;
         }
 
-        gamesInWishlist.add(game);
-        gamesCount++;
-        System.out.println("Added " + game.getVideoGameName() + " to " + gamesWishlistName + " wishlist.");
+        wishlistGames.add(game);
+        wishlistGamesCount++;
+        System.out.println("Added game: " + game.getVideoGameName() + " to wishlist: " + gameWishlistName);
     }
 
     public void removeGameFromWishlist() {
-        VideoGame game = findGame();
-
-        if (game == null) {
-            System.out.println("The game doesn't exist!");
+        if (wishlistGames.isEmpty()) {
+            System.out.println(NO_GAMES_ERROR_TEXT);
             return;
         }
 
-        gamesInWishlist.remove(game);
-        System.out.println("Removed " + game.getVideoGameName() + " from " + gamesWishlistName + " list.");
-        gamesCount--;
+        VideoGame game = findGame();
+        if (game == null) {
+            System.out.println("The entered game doesn't exist in the wishlist: " + getGameWishlistName());
+            return;
+        }
+
+        wishlistGames.remove(game);
+        System.out.println("Removed game: " + game.getVideoGameName() + " from wishlist: " + gameWishlistName);
+        wishlistGamesCount--;
     }
 
-    // Finds a VideoGame object by its name and returns it
-    // If not found, returns null
+    // Finds a VideoGame by its name and console
+    // Returns VideoGame if exists and null if the game doesn't exist
     private VideoGame findGame() {
-        Scanner scanner = new Scanner(System.in);
+        displayWishlistGames();
 
-        System.out.println("Enter game name: ");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter game name:");
         String gameName = scanner.nextLine();
 
-        System.out.println("Enter game console: ");
+        System.out.println("Enter game console:");
         String gameConsole = scanner.nextLine();
         VideoGame searchedGame = null;
 
-        for (VideoGame videoGame : gamesInWishlist) {
+        for (VideoGame videoGame : wishlistGames) {
             if (videoGame.getVideoGameName().equals(gameName) && videoGame.getVideoGameConsole().equalsIgnoreCase(gameConsole)) {
                 searchedGame = videoGame;
             }
@@ -62,44 +72,57 @@ public class GameWishlist implements Serializable {
         return searchedGame;
     }
 
-    public void displayGames() {
-        if (gamesInWishlist.isEmpty()) {
-            System.out.println("There are no games in the wishlist.");
+    public void displayWishlistGames() {
+        if (wishlistGames.isEmpty()) {
+            System.out.println(NO_GAMES_ERROR_TEXT);
             return;
         }
 
-        System.out.println(this.gamesWishlistName + " has " + gamesCount + " game(s) in wishlist.");
-        for (VideoGame game : gamesInWishlist) {
-            System.out.println(game);
+        System.out.println(this.gameWishlistName + " has " + wishlistGamesCount + " game(s) in wishlist.\n");
+        for (VideoGame game : wishlistGames) {
+            System.out.println(game + "\n");
         }
     }
 
     // Displays a list of games, finds the game according to user input and then modifies the game
     public void modifyGame() {
-        displayGames();
+        if (wishlistGames.isEmpty()) {
+            System.out.println(NO_GAMES_ERROR_TEXT);
+            return;
+        }
+
+        displayWishlistGames();
         VideoGame game = findGame();
+        if (game == null) {
+            System.out.println("The searched game doesn't exist.");
+            return;
+        }
+
         game.modifyVideoGame();
     }
 
-    public void saveWishlist() {
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("output.dat"))) {
-            outputStream.writeObject(this);
-        } catch (IOException e) {
-            System.out.println("Error while saving GameWishlist.");
-        }
-    }
-
-    public GameWishlist loadWishlist() {
-        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("output.dat"))) {
-            return (GameWishlist) inputStream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error while loading GameWishlist.");
-            return null;
-        }
+    @Override
+    public int hashCode() {
+        int result = 31;
+        result = result * gameWishlistName.hashCode();
+        return result;
     }
 
     @Override
-    public String toString() {
-        return this.gamesWishlistName;
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        GameWishlist wishlist = (GameWishlist) obj;
+        return this.gameWishlistName.equalsIgnoreCase(wishlist.gameWishlistName);
     }
 }
